@@ -67,20 +67,23 @@ const MediaControls = (props: Props) => {
   const [opacity] = useState(new Animated.Value(initialOpacity));
   const [isVisible, setIsVisible] = useState(initialIsVisible);
 
-  const fadeOutControls = useCallback((delay = 0) => {
-    Animated.timing(opacity, {
-      toValue: 0,
-      duration: 300,
-      delay,
-      useNativeDriver: false,
-    }).start(result => {
-      /* I noticed that the callback is called twice, when it is invoked and when it completely finished
+  const fadeOutControls = useCallback(
+    (delay = 0) => {
+      Animated.timing(opacity, {
+        toValue: 0,
+        duration: 300,
+        delay,
+        useNativeDriver: false,
+      }).start(result => {
+        /* I noticed that the callback is called twice, when it is invoked and when it completely finished
       This prevents some flickering */
-      if (result.finished) {
-        setIsVisible(false);
-      }
-    });
-  }, [opacity]);
+        if (result.finished) {
+          setIsVisible(false);
+        }
+      });
+    },
+    [opacity],
+  );
 
   useEffect(() => {
     fadeOutControls(fadeOutDelay);
