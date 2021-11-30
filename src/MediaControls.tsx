@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   View,
   Animated,
@@ -67,10 +67,6 @@ const MediaControls = (props: Props) => {
   const [opacity] = useState(new Animated.Value(initialOpacity));
   const [isVisible, setIsVisible] = useState(initialIsVisible);
 
-  useEffect(() => {
-    fadeOutControls(fadeOutDelay);
-  }, []);
-
   const fadeOutControls = (delay = 0) => {
     Animated.timing(opacity, {
       toValue: 0,
@@ -86,7 +82,11 @@ const MediaControls = (props: Props) => {
     });
   };
 
-  const fadeInControls = (loop = true) => {
+  useEffect(() => {
+    fadeOutControls(fadeOutDelay);
+  }, [fadeOutControls, fadeOutDelay]);
+
+  const fadeInControls = useCallback((loop = true) => {
     setIsVisible(true);
     Animated.timing(opacity, {
       toValue: 1,
@@ -98,7 +98,7 @@ const MediaControls = (props: Props) => {
         fadeOutControls(fadeOutDelay);
       }
     });
-  };
+  }, []);
 
   const onReplay = () => {
     fadeOutControls(fadeOutDelay);
