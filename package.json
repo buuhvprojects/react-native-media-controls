@@ -1,9 +1,8 @@
 {
-  "version": "2.3.0",
-  "name": "react-native-media-controls",
+  "version": "1.0.0",
+  "name": "@buuhvprojects/react-native-media-controls",
   "author": {
-    "name": "Charlie L",
-    "email": "charliesbot@gmail.com"
+    "name": "BuuhV Projects"
   },
   "license": "MIT",
   "keywords": [

@@ -49,3 +49,6 @@ example/android/keystores/debug.keystore
 lib/
 
 yarn-error.log
+
+package-lock.json
+yarn.lock
