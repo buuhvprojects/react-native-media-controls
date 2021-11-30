@@ -67,7 +67,7 @@ const MediaControls = (props: Props) => {
   const [opacity] = useState(new Animated.Value(initialOpacity));
   const [isVisible, setIsVisible] = useState(initialIsVisible);
 
-  const fadeOutControls = (delay = 0) => {
+  const fadeOutControls = useCallback((delay = 0) => {
     Animated.timing(opacity, {
       toValue: 0,
       duration: 300,
@@ -80,13 +80,13 @@ const MediaControls = (props: Props) => {
         setIsVisible(false);
       }
     });
-  };
+  }, [opacity]);
 
   useEffect(() => {
     fadeOutControls(fadeOutDelay);
   }, [fadeOutControls, fadeOutDelay]);
 
-  const fadeInControls = useCallback((loop = true) => {
+  const fadeInControls = (loop = true) => {
     setIsVisible(true);
     Animated.timing(opacity, {
       toValue: 1,
@@ -98,7 +98,7 @@ const MediaControls = (props: Props) => {
         fadeOutControls(fadeOutDelay);
       }
     });
-  }, []);
+  };
 
   const onReplay = () => {
     fadeOutControls(fadeOutDelay);
